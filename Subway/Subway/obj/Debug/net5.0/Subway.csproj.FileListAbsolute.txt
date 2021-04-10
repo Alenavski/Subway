@@ -1,0 +1,16 @@
+C:\projects\Subway\Subway\bin\Debug\net5.0\Subway.deps.json
+C:\projects\Subway\Subway\bin\Debug\net5.0\Subway.dll
+C:\projects\Subway\Subway\bin\Debug\net5.0\ref\Subway.dll
+C:\projects\Subway\Subway\bin\Debug\net5.0\Subway.pdb
+C:\projects\Subway\Subway\obj\Debug\net5.0\Subway.csprojAssemblyReference.cache
+C:\projects\Subway\Subway\obj\Debug\net5.0\Subway.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\Subway\Subway\obj\Debug\net5.0\Subway.AssemblyInfoInputs.cache
+C:\projects\Subway\Subway\obj\Debug\net5.0\Subway.AssemblyInfo.cs
+C:\projects\Subway\Subway\obj\Debug\net5.0\Subway.csproj.CoreCompileInputs.cache
+C:\projects\Subway\Subway\obj\Debug\net5.0\Subway.dll
+C:\projects\Subway\Subway\obj\Debug\net5.0\ref\Subway.dll
+C:\projects\Subway\Subway\obj\Debug\net5.0\Subway.pdb
+C:\projects\Subway\Subway\bin\Debug\net5.0\Subway.exe
+C:\projects\Subway\Subway\bin\Debug\net5.0\Subway.runtimeconfig.json
+C:\projects\Subway\Subway\bin\Debug\net5.0\Subway.runtimeconfig.dev.json
+C:\projects\Subway\Subway\obj\Debug\net5.0\Subway.genruntimeconfig.cache

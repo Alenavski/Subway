@@ -8,6 +8,10 @@ namespace Subway
 {
     class Loader
     {
-
+        public Dictionary<string,Line> Load(string fileName)
+        {
+            Dictionary<string, Line> lines = new Dictionary<string, Line>();
+            return lines;
+        }
     }
 }

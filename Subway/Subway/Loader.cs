@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Subway
 {
-    class Loader
+    public class Loader
     {
-        public Dictionary<string,Line> Load(string fileName)
+        public Dictionary<string, Line> Load(string filePath)
         {
-            Dictionary<string, Line> lines = new Dictionary<string, Line>();
+            var lines = new Dictionary<string, Line>();
             return lines;
         }
     }

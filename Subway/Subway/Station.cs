@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Subway
 {
-    class Station
+    public class Station
     {
         public string StationName { get; }
         public HashSet<Station> NextStations { get; }

@@ -9,17 +9,28 @@ namespace Subway
     public class Line
     {
         public string LineName { get; }
-        public HashSet<Station> Stations { get; }
+        public List<Station> Stations { get; }
 
         public Line(string lineName)
         {
             LineName = lineName;
-            Stations = new HashSet<Station>();
+            Stations = new List<Station>();
         }
 
         public void AddStation(string stationName)
         {
-            Stations.Add(new Station(stationName));
+            bool notExists = true;
+            foreach (var station in Stations)
+            {
+                if (station.StationName.Equals(stationName))
+                {
+                    notExists = false;
+                }
+            }
+            if (notExists)
+            {
+                Stations.Add(new Station(stationName));
+            }
         }
     }
 }

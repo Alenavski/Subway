@@ -9,12 +9,12 @@ namespace Subway
     public class Station
     {
         public string StationName { get; }
-        public HashSet<Station> NextStations { get; }
+        public List<Station> NextStations { get; }
 
         public Station(string stationName)
         {
             StationName = stationName;
-            NextStations = new HashSet<Station>();
+            NextStations = new List<Station>();
         }
 
         public void AddNextStation(Station station)

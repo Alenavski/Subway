@@ -9,32 +9,34 @@ namespace Subway
 {
     public class Loader
     {
-        public Dictionary<string, Line> Load(string filePath)
+        public static Dictionary<string, Line> Load(string filePath)
         {
             var lines = new Dictionary<string, Line>();
 
-            string record;
-            string lineName = "";
-            using (StreamReader fileReader = new StreamReader(filePath))
+            using (var fileReader = new StreamReader(filePath))
             {
-                if ((record = fileReader.ReadLine()) != null)
-                {
-                    lines.Add(record, new Line(record));
-                    lineName = record;
-                }
+                string record;
+                string lineName = "";
+                bool isLine = true;
+                
                 while ((record = fileReader.ReadLine()) != null)
                 {
-                    if (record == "")
+                    if (isLine)
                     {
-                        if ((record = fileReader.ReadLine()) != null)
-                        {
-                            lines.Add(record, new Line(record));
-                            lineName = record;
-                        }
+                        lines.Add(record, new Line(record));
+                        lineName = record;
+                        isLine = false;
                     }
                     else
                     {
-                        lines[lineName].Stations.Add(new Station(record));
+                        if (record == String.Empty)
+                        {
+                            isLine = true;
+                        }
+                        else
+                        {
+                            lines[lineName].Stations.Add(new Station(record));
+                        }
                     }
                 }
             }
@@ -42,17 +44,16 @@ namespace Subway
             return lines;
         }
 
-        private void SetNextStations(Dictionary<string,Line> lines)
+        private static void SetNextStations(Dictionary<string, Line> lines)
         {
-            Station firstStation;
-            Station lastStation;
-            Station prevStation = null;
             foreach (var line in lines)
             {
-                firstStation = line.Value.Stations.FirstOrDefault();
-                lastStation = line.Value.Stations.LastOrDefault();
+                Station firstStation = line.Value.Stations.FirstOrDefault();
+                Station lastStation = line.Value.Stations.LastOrDefault();
                 firstStation.NextStations.Add(lastStation);
                 lastStation.NextStations.Add(firstStation);
+
+                Station prevStation = null;
                 foreach (var station in line.Value.Stations)
                 {
                     if (station == firstStation)

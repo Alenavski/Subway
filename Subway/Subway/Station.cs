@@ -9,17 +9,33 @@ namespace Subway
     public class Station
     {
         public string StationName { get; }
-        public HashSet<Station> NextStations { get; }
+        public HashSet<Station> ConnectedStations { get; }
 
         public Station(string stationName)
         {
             StationName = stationName;
-            NextStations = new HashSet<Station>();
+            ConnectedStations = new HashSet<Station>();
+        }
+        public override bool Equals(Object obj)
+        {
+            if (this.GetHashCode() == obj.GetHashCode())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public void AddNextStation(Station station)
+        public override int GetHashCode()
         {
-            NextStations.Add(station);
+            return this.StationName.GetHashCode();
+        }
+
+        public void AddConnectedStation(Station station)
+        {
+            ConnectedStations.Add(station);
         }
     }
 }

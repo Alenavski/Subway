@@ -33,7 +33,7 @@ namespace Subway
             return this.StationName.GetHashCode();
         }
 
-        public void AddNextStation(Station station)
+        public void AddConnectedStation(Station station)
         {
             ConnectedStations.Add(station);
         }

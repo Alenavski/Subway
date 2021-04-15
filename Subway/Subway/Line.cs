@@ -16,10 +16,5 @@ namespace Subway
             LineName = lineName;
             Stations = new HashSet<Station>();
         }
-
-        public void AddStation(string stationName)
-        {
-            Stations.Add(new Station(stationName));
-        }
     }
 }

@@ -11,7 +11,7 @@ namespace Subway
     {
         public static List<Line> Load(string filePath)
         {
-            var lines = ReadLines(filePath);            
+            var lines = ReadLines(filePath);
             return lines;
         }
 
@@ -24,23 +24,32 @@ namespace Subway
                 string record;
                 bool isLine = true;
                 Station prevStation = null;
+                Line curLine = null;
                 while ((record = fileReader.ReadLine()) != null)
                 {
                     if (isLine)
                     {
-                        lines.Add(new Line(record));
+                        curLine = new Line(record);
+                        lines.Add(curLine);
                         isLine = false;
                     }
                     else
                     {
                         if (record == string.Empty)
                         {
-
                             isLine = true;
                         }
                         else
                         {
-                            SetStations(lines, record, ref prevStation);
+                            var firstStation = curLine.Stations.FirstOrDefault();
+                            if (IsFirstStationOfCircledLine(firstStation, record))
+                            {
+                                prevStation = ConnectFirstAndLastStations(firstStation, prevStation);
+                            }
+                            else
+                            {
+                                prevStation = AddNewStation(curLine.Stations, record, prevStation);
+                            }
                         }
                     }
                 }
@@ -49,32 +58,48 @@ namespace Subway
             return lines;
         }
 
-        public static void SetStations(List<Line> lines, string record, ref Station prevStation)
+        public static Station AddNewStation(HashSet<Station> stations, string newStationName, Station prevStation)
         {
-            if ((lines.Last().Stations.FirstOrDefault() != null) && (lines.Last().Stations.FirstOrDefault().StationName.Equals(record)))
+            var curStation = new Station(newStationName);
+            stations.Add(curStation);
+            if (prevStation != null)
             {
-                if (prevStation == null)
-                {
-                    prevStation = lines.Last().Stations.First();
-                }
-                else
-                {
-                    prevStation.ConnectedStations.Add(lines.Last().Stations.First());
-                    lines.Last().Stations.First().ConnectedStations.Add(prevStation);
-                    prevStation = null;
-                }
+                ConnectStations(curStation, prevStation);
+            }
+            prevStation = curStation;
+            return prevStation;
+        }
+
+        private static bool IsFirstStationOfCircledLine(Station firstStation, string newStationName)
+        {
+            if ((firstStation != null) && (firstStation.StationName.Equals(newStationName)))
+            {
+                return true;
             }
             else
             {
-                lines.Last().Stations.Add(new Station(record));
-                var curStation = lines.Last().Stations.Last();
-                if (prevStation != null)
-                {
-                    curStation.ConnectedStations.Add(prevStation);
-                    prevStation.ConnectedStations.Add(curStation);
-                }
-                prevStation = curStation;
+                return false;
             }
+        }
+
+        private static Station ConnectFirstAndLastStations(Station firstStation, Station lastStation)
+        { 
+            if (lastStation == null)
+            {
+                lastStation = firstStation;
+            }
+            else
+            {
+                ConnectStations(firstStation, lastStation);
+                lastStation = null;
+            }
+            return lastStation;
+        }
+
+        private static void ConnectStations(Station firstStation, Station secondStation)
+        {
+            secondStation.AddConnectedStation(firstStation);
+            firstStation.AddConnectedStation(secondStation);
         }
     }
 }

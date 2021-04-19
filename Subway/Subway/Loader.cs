@@ -49,7 +49,7 @@ namespace Subway
             return lines;
         }
 
-        private static Station ReturnExistedStation(string newStationName, List<Line> lines)
+        public static Station ReturnExistedStation(string newStationName, List<Line> lines)
         {
             var newStation = new Station(newStationName);
             foreach (var line in lines)

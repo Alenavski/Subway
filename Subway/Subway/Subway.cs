@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using System.Text;
 
 namespace Subway
 {
@@ -68,13 +68,23 @@ namespace Subway
             return path;
         }
 
-        public Stack<Station> GetPath(string firstStationName, string lastStationName)
+        public string GetPath(string firstStationName, string lastStationName)
         {
             var firstStation = Loader.ReturnExistedStation(firstStationName, _lines);
             var lastStation = Loader.ReturnExistedStation(lastStationName, _lines);
 
             var stackPath = FindPath(firstStation, lastStation);
-            return stackPath;
+            if (stackPath != null)
+            {
+                var path = new StringBuilder();
+                while (stackPath.Count > 0)
+                {
+                    path.Append(stackPath.Pop().StationName + " -> ");
+                }
+                return path.ToString()[0..^4];
+            }
+            else
+                return "(404 error) Path not found... :(";
         }
     }
 }

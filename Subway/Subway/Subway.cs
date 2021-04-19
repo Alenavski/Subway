@@ -48,8 +48,8 @@ namespace Subway
 
         private static Stack<Station> FormPath(int iterationsCount, Dictionary<Station, int> visitedStations, Station lastStation)
         {
-            var _path = new Stack<Station>();
-            _path.Push(lastStation);
+            var path = new Stack<Station>();
+            path.Push(lastStation);
             for (int i = iterationsCount - 1; i >= 0; i--)
             {
                 foreach (var station in lastStation.ConnectedStations)
@@ -58,14 +58,14 @@ namespace Subway
                     {
                         if (index == i)
                         {
-                            _path.Push(station);
+                            path.Push(station);
                             lastStation = station;
                             break;
                         }
                     }
                 }
             }
-            return _path;
+            return path;
         }
 
         public Stack<Station> GetPath(string firstStationName, string lastStationName)

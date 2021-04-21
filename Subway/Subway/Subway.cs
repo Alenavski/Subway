@@ -6,10 +6,10 @@ namespace Subway
     public class Subway
     {
         private List<Line> _lines;
-        
-        public Subway(string filePath)
+
+        public Subway(List<Line> lines)
         {
-            _lines = Loader.Load(filePath);
+            _lines = lines;
         }
 
         private static Stack<Station> FindPath(Station curStation, Station lastStation)
@@ -68,23 +68,19 @@ namespace Subway
             return path;
         }
 
-        public string GetPath(string firstStationName, string lastStationName)
+        public List<Station> GetPath(string firstStationName, string lastStationName)
         {
             var firstStation = Loader.ReturnExistedStation(firstStationName, _lines);
             var lastStation = Loader.ReturnExistedStation(lastStationName, _lines);
 
             var stackPath = FindPath(firstStation, lastStation);
-            if (stackPath != null)
+
+            var path = new List<Station>();
+            while (stackPath.Count > 0)
             {
-                var path = new StringBuilder();
-                while (stackPath.Count > 0)
-                {
-                    path.Append(stackPath.Pop().StationName + " -> ");
-                }
-                return path.ToString()[0..^4];
+                path.Add(stackPath.Pop());
             }
-            else
-                return "(404 error) Path not found... :(";
+            return path;
         }
     }
 }

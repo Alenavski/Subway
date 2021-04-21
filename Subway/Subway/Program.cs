@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Subway
 {
@@ -7,10 +6,13 @@ namespace Subway
     {
         static void Main(string[] args)
         {
-            Subway subway = new Subway("D:\\Subway\\Subway\\Subway\\StationList.txt");
-            string path = subway.GetPath("AjaxRapids", "GoF Gardens");
+            Subway subway = new Subway(Loader.Load("D:\\Subway\\Subway\\Subway\\StationList.txt"));
+            var path = subway.GetPath("AjaxRapids", "GoF Gardens");
 
-            Console.WriteLine(path);
+            foreach (var station in path)
+            {
+                Console.WriteLine(station.StationName);
+            }
         }
     }
 }

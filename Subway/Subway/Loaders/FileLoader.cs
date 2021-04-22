@@ -3,13 +3,19 @@ using System.IO;
 
 namespace Subway
 {
-    public class Loader
+    public class FileLoader : ILoader
     {
-        public static List<Line> Load(string filePath)
+        private string _filePath;
+
+        public FileLoader(string filePath)
+        {
+            _filePath = filePath;
+        }
+        public List<Line> Load()
         {
             var lines = new List<Line>();
 
-            using (var fileReader = new StreamReader(filePath))
+            using (var fileReader = new StreamReader(_filePath))
             {
                 string record;
                 bool isLine = true;
@@ -49,7 +55,7 @@ namespace Subway
             return lines;
         }
 
-        public static Station ReturnExistedStation(string newStationName, List<Line> lines)
+        private static Station ReturnExistedStation(string newStationName, List<Line> lines)
         {
             var newStation = new Station(newStationName);
             foreach (var line in lines)

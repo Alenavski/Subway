@@ -6,13 +6,13 @@ namespace Subway
     {
         static void Main(string[] args)
         {
-            Subway subway = new Subway(Loader.Load("D:\\Subway\\Subway\\Subway\\StationList.txt"));
+            var loader = new FileLoader("C:\\projects\\Subway\\Subway\\StationList.txt");
+            Subway subway = new Subway(loader.Load());
             var path = subway.GetPath("AjaxRapids", "GoF Gardens");
-
-            foreach (var station in path)
-            {
-                Console.WriteLine(station.StationName);
-            }
+            IPrinter printer = new ConsolePrinter();
+            printer.Print(path);
+            printer = new FilePrinter("C:\\projects\\Subway\\Subway\\StationPath.txt");
+            printer.Print(path);
         }
     }
 }

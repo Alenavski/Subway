@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 
 namespace Subway
 {
@@ -68,10 +67,23 @@ namespace Subway
             return path;
         }
 
+        private static Station ReturnExistedStation(string newStationName, List<Line> lines)
+        {
+            var newStation = new Station(newStationName);
+            foreach (var line in lines)
+            {
+                if (line.Stations.TryGetValue(newStation, out Station curStation))
+                {
+                    return curStation;
+                }
+            }
+            return null;
+        }
+
         public List<Station> GetPath(string firstStationName, string lastStationName)
         {
-            var firstStation = Loader.ReturnExistedStation(firstStationName, _lines);
-            var lastStation = Loader.ReturnExistedStation(lastStationName, _lines);
+            var firstStation = ReturnExistedStation(firstStationName, _lines);
+            var lastStation = ReturnExistedStation(lastStationName, _lines);
 
             var stackPath = FindPath(firstStation, lastStation);
 
